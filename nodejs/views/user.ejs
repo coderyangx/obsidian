@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style type="text/css">
+    body {
+      padding: 50px;
+      font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>
+    <%= name.toUpperCase() %>
+  </h1>
+  <p>我是渲染的模板, <%= name %>
+  </p>
+  <div>
+    <% name %>：运行 JavaScript 代码，不输出
+      <%= name %>：显示转义后的 HTML内容
+        <%- name %>：显示原始 HTML 内容
+  </div>
+</body>
+
+</html>
