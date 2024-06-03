@@ -1,4 +1,4 @@
-webpack 视频： https://www.bilibili.com/video/BV1kP41177wp?p=66&spm_id_from=pageDriver&vd_source=ceba6fa4ea92478c52c3119bd474a7ab 
+webpack 视频： [链接](https://www.bilibili.com/video/BV1kP41177wp?p=66&spm_id_from=pageDriver&vd_source=ceba6fa4ea92478c52c3119bd474a7ab )   
 
 框架库源码在线网站：  https://unpkg.com/
 
@@ -7,6 +7,8 @@ webpack 视频： https://www.bilibili.com/video/BV1kP41177wp?p=66&spm_id_from=p
 免费获取图片链接：[https://picsum.photos/](https://picsum.photos/)  
 
 免费制作gif： [gif制作](https://www.doutub.com/gifEdit/template/details/1576780774220) 
+
+免费生成图片在线链接：[https://zh-cn.imgbb.com/](https://zh-cn.imgbb.com/)  
 
 css3 在线生成剪贴路径clip-path：[https://www.techbrood.com/tool?p=css-clip-path](https://www.techbrood.com/tool?p=css-clip-path)  
  

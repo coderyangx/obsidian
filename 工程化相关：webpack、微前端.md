@@ -10,7 +10,7 @@ webpack分包：[webpack分包实现按需加载](https://www.bilibili.com/video
 webpack 魔法注释：[链接](https://www.bilibili.com/video/BV1kP41177wp?p=72&vd_source=ceba6fa4ea92478c52c3119bd474a7ab) ，给动态导入模块起名字
 webpack 提取公共模块：[链接](https://www.bilibili.com/video/BV1kP41177wp?p=70&vd_source=ceba6fa4ea92478c52c3119bd474a7ab) 
 	比如某些 js、css 文件，比如：配置 optimization: { splitChunks: { chunks: 'all' } }
-	![[Pasted image 20240601170112.png]]
+	 https://ibb.co/v1G06Sc 
 
 webpack publicPath详解：[webpack publicPath详解](https://www.bilibili.com/video/BV1kP41177wp/?p=24&spm_id_from=pageDriver&vd_source=ceba6fa4ea92478c52c3119bd474a7ab)      
 
