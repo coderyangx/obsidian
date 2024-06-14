@@ -1,6 +1,6 @@
 webpack 视频： [链接](https://www.bilibili.com/video/BV1kP41177wp?p=66&spm_id_from=pageDriver&vd_source=ceba6fa4ea92478c52c3119bd474a7ab )   
 
-框架库源码在线网站：  https://unpkg.com/
+框架库源码在线网站：  https://unpkg.com/          框架库源码网站：  https://unpkg.com/
 
 免费大模型 api：[https://console.groq.com/playground](https://console.groq.com/playground)  
 
@@ -11,6 +11,11 @@ webpack 视频： [链接](https://www.bilibili.com/video/BV1kP41177wp?p=66&spm_
 免费生成图片在线链接：[https://zh-cn.imgbb.com/](https://zh-cn.imgbb.com/)  
 
 css3 在线生成剪贴路径clip-path：[https://www.techbrood.com/tool?p=css-clip-path](https://www.techbrood.com/tool?p=css-clip-path)  
+
+puppeteer web自动化测试：[链接](https://www.bilibili.com/video/BV17s421N72k/?spm_id_from=333.337.search-card.all.click&vd_source=ceba6fa4ea92478c52c3119bd474a7ab)  
+
+
+
  
 
 #### js高级
