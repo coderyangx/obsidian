@@ -1,12 +1,13 @@
 [webpack 笔记](https://www.qcqx.cn/article/764f33bc.html)          webpack 视频：  [链接](https://www.bilibili.com/video/BV1kP41177wp?p=66&spm_id_from=pageDriver&vd_source=ceba6fa4ea92478c52c3119bd474a7ab )   
 
 #### webpack相关
+[性能优化基础操作细节](https://ibb.co/F8y14zz)  
 webpack prefetch/preload js文件原理：[链接](https://www.bilibili.com/video/BV11T41167vf/?spm_id_from=333.999.0.0&vd_source=ceba6fa4ea92478c52c3119bd474a7ab)      
 preload 预加载，解析 html 文档同时开始下载资源，prefetch 预拉取，页面加载完成才会加载
 `preload` 用于高优先级加载资源，这些资源是页面在渲染时立即需要的。通过 `preload`，浏览器可以提前加载这些资源，以减少加载时间并提高页面的首次渲染速度。
 `prefetch` 用于低优先级加载资源，这些资源是用户未来可能需要的。浏览器在空闲时间会低优先级预取这些资源，从而在用户导航到相应页面时更快地加载资源。
 可以通过魔法注释：/*webpackPrefetch: 999*/ 提高prefetch的加载权重
-scripti加载
+script 加载
 	1、做到了充分按需引入，用到的时候在加载，不用永不加载，充分节省了带宽
 	2、最大问题在于，切换需要等待，体验不是很流畅
 prefetch
