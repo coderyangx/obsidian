@@ -1,120 +1,118 @@
 虚拟列表渲染
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-<style>
-* {
-	margin: 0;
-	padding: 0;
-}
-.v-scroll {
-	width: 300px;
-	height: 400px;
-	border: 1px solid black;
-	overflow-y: scroll;
-	margin: 100px 0 0 100px;
-}
-li {
-	list-style: none;
-	padding-left: 20px;
-	line-height: 40px;
-	height: 40px;
-	box-sizing: border-box;
-}
-</style>
-</head>
-<body>
-<div id="app">
-<div class="v-scroll" @scroll="doScroll" ref="scrollBox">
-<ul :style="blankStyle" style="height: 100%">
-<li v-for="item in currentList" :key="item.id">
-{{ item }}
-</li>
-</ul>
-</div>
-</div>
-<script>
-const { createApp, ref, onMounted, computed } = Vue
-createApp({
-setup() {
-const allList = ref([]);
-getAllList(300);
-function getAllList(count) {
-const length = allList.value.length;
-for (let i = 0; i < count; i++) {
-allList.value.push(`我是列表${length + i + 1}项`)
-}
-}
-const scrollBox = ref(null);
-const boxHeight = ref(0);
-function getScrollBoxHeight() {
-boxHeight.value = scrollBox.value.clientHeight;
-}
-onMounted(() => {
-getScrollBoxHeight();
-window.onresize = getScrollBoxHeight;
-window.onorientationchange = getScrollBoxHeight;
-})
-const itemHiehgt = ref(40);
-const itemNum = computed(() => {
-return ~~(boxHeight.value / itemHiehgt.value) + 2;
-});
-const startIndex = ref(0);
-const doScroll = _.throttle(() => {
-const index = ~~(scrollBox.value.scrollTop / itemHiehgt.value);
-if (index === startIndex.value) return;
-startIndex.value = index;
-}, 200)
-const endIndex = computed(() => {
-let index = startIndex.value + itemNum.value * 2;
-if (!allList.value[index]) {
-index = allList.value.length - 1;
-}
-return index;
-});
-const currentList = computed(() => {
-let index = 0;
-if (startIndex.value <= itemNum.value) {
-index = 0;
-} else {
-index = startIndex.value - itemNum.value;
-}
-return allList.value.slice(index, endIndex.value + 1);
-});
-const blankStyle = computed(() => {
-let index = 0;
-if (startIndex.value <= itemNum.value) {
-index = 0;
-} else {
-index = startIndex.value - itemNum.value;
-}
-return {
-paddingTop: index * itemHiehgt.value + "px",
-paddingBottom: (allList.value.length - endIndex.value - 1) * itemHiehgt.value + "px"
-};
-});
-return {
-allList,
-currentList,
-boxHeight,
-itemHiehgt,
-scrollBox,
-doScroll,
-blankStyle
-}
-}
-}).mount('#app')
-</script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .v-scroll {
+        width: 300px;
+        height: 400px;
+        border: 1px solid black;
+        overflow-y: scroll;
+        margin: 100px 0 0 100px;
+      }
+      li {
+        list-style: none;
+        padding-left: 20px;
+        line-height: 40px;
+        height: 40px;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="v-scroll" @scroll="doScroll" ref="scrollBox">
+        <ul :style="blankStyle" style="height: 100%">
+          <li v-for="item in currentList" :key="item.id">{{ item }}</li>
+        </ul>
+      </div>
+    </div>
+    <script>
+      const { createApp, ref, onMounted, computed } = Vue;
+      createApp({
+        setup() {
+          const allList = ref([]);
+          getAllList(300);
+          function getAllList(count) {
+            const length = allList.value.length;
+            for (let i = 0; i < count; i++) {
+              allList.value.push(`我是列表${length + i + 1}项`);
+            }
+          }
+          const scrollBox = ref(null);
+          const boxHeight = ref(0);
+          function getScrollBoxHeight() {
+            boxHeight.value = scrollBox.value.clientHeight;
+          }
+          onMounted(() => {
+            getScrollBoxHeight();
+            window.onresize = getScrollBoxHeight;
+            window.onorientationchange = getScrollBoxHeight;
+          });
+          const itemHiehgt = ref(40);
+          const itemNum = computed(() => {
+            return ~~(boxHeight.value / itemHiehgt.value) + 2;
+          });
+          const startIndex = ref(0);
+          const doScroll = _.throttle(() => {
+            const index = ~~(scrollBox.value.scrollTop / itemHiehgt.value);
+            if (index === startIndex.value) return;
+            startIndex.value = index;
+          }, 200);
+          const endIndex = computed(() => {
+            let index = startIndex.value + itemNum.value * 2;
+            if (!allList.value[index]) {
+              index = allList.value.length - 1;
+            }
+            return index;
+          });
+          const currentList = computed(() => {
+            let index = 0;
+            if (startIndex.value <= itemNum.value) {
+              index = 0;
+            } else {
+              index = startIndex.value - itemNum.value;
+            }
+            return allList.value.slice(index, endIndex.value + 1);
+          });
+          const blankStyle = computed(() => {
+            let index = 0;
+            if (startIndex.value <= itemNum.value) {
+              index = 0;
+            } else {
+              index = startIndex.value - itemNum.value;
+            }
+            return {
+              paddingTop: index * itemHiehgt.value + 'px',
+              paddingBottom: (allList.value.length - endIndex.value - 1) * itemHiehgt.value + 'px',
+            };
+          });
+          return {
+            allList,
+            currentList,
+            boxHeight,
+            itemHiehgt,
+            scrollBox,
+            doScroll,
+            blankStyle,
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
 </html>
 ```
-
 
 ```html
 <html lang="en">
@@ -131,10 +129,10 @@ blankStyle
 
 	<div>测试自定义元素</div>
 	<my-element id="myEle">my-element</my-element>
-  
+
 
 	<button id="sendPost">发送请求</button>
-  
+
 	<div style="margin-top: 50px;">
 		<h3>上传文件</h3>
 		<input type="file" id="fileInput">
@@ -145,7 +143,7 @@ blankStyle
 表单上传
 <input type="file" id="fileInput">
 </form> -->
-	
+
 	<h3 style="margin-top: 50px;">选择文本高亮显示</h3>
 	<div id="content">
 		这是一段示例文本，<span>您可以尝试选取其中的一部分</span>，然后点击上方的按钮来高亮显示您选择的文本。
@@ -154,13 +152,13 @@ blankStyle
 <h3 style="margin-top: 50px;">获取焦点自动定位</h3>
 <input type="text" style="width: 400px;" value="鼠标自动定位到position 10." id="ipt">
 </div>
-  
+
 	<h3>当容器设置flex或grid，margin不会塌陷 collapse</h3>
 	<div>创建BFC - 为父元素加边框也可以</div>
 	<div style="margin-top: 20px;border: 1px solid red;">
 	<div style="margin-top: 20px;margin-right: 20px;background: skyblue;width: 200px;height: 50px">1</div>
 	<div style="margin-top: 20px;margin-left: 20px;background: gray;width: 200px;height: 50px">2</div>
-	
+
 </div>
 </body>
 <script>
@@ -204,7 +202,7 @@ blankStyle
 	person.say().go()
 }
 
-  
+
 // ** 通过 getSelection() 实现文本高亮显示，获取选中文字，固定光标位置
 // 将光标放在第三个字符上 // 注意：字符索引从0开始，所以第三个字符的索引是2 inputRef.current.setSelectionRange(2, 2);
 {
@@ -218,8 +216,8 @@ blankStyle
 		}
 		function highlightSelection(selection) {
 			var range = selection.getRangeAt(0);
-			console.log('获取到的 selection', selection, 
-				selection.toString(), 
+			console.log('获取到的 selection', selection,
+				selection.toString(),
 				range.cloneContents()
 			);
 			var span = document.createElement('span');
@@ -230,7 +228,7 @@ blankStyle
 	});
 }
 
-  
+
 // ** 表单获取焦点自动focus到某一位置
 {
 	const ipt = document.querySelector('#ipt');
@@ -272,7 +270,7 @@ console.table('\n=-----------=\n\n')
 		}
 	};
 }
-  
+
 
 // ** 往数据库新增数据
 const btn = document.querySelector('#sendPost')
@@ -320,13 +318,13 @@ class MyElement extends HTMLElement {
 		super()
 		this.innerHTML = ' 自定义innerHTML --'
 		// 创建一个 shadow root，可以实现css隔离
-		// this.attachShadow({ mode: "open" }) 
+		// this.attachShadow({ mode: "open" })
 	}
 	// 当元素被插入到DOM中时调用
 	connectedCallback() {
 	const template = document.getElementById("myEle");
 	console.log('connected--', template, template.textContent);
-	
+
 	// this.shadowRoot.innerHTML = `
 	// <style>
 	// div {
@@ -336,7 +334,7 @@ class MyElement extends HTMLElement {
 	// <div>hello world</div>
 	// `
 	}
-	
+
 	// 当元素被移除时调用
 	disconnectedCallback() {
 		console.log('disconnected')
@@ -360,4 +358,3 @@ console.log(document.getElementById("myEle"), document.getElementById("myEle").t
 </script>
 </html>
 ```
-
