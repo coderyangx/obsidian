@@ -113,7 +113,7 @@ run();
 
 
 #### husky 原理
-
+git hooks，实现lint 代码检查 代码规范化
 
 #### 前端工程化、工作流、埋点监控、性能、部署、CI/CD、
 项目规范：`ESlint`，`stylelint`， `prettier`， `commitlint`
