@@ -12,6 +12,7 @@ roadmap: [roadmap.sh](https://roadmap.sh/frontend)
 
 learn devops: [devops](https://dev.to/prodevopsguytech/learn-devops-with-0-knowledge-for-freshers-6i4)
 
+从网页中定位源码位置：locatorjs插件    webpack插件：code-inspector-plugin
 
 框架库源码在线网站：  https://unpkg.com/   框架库源码网站：  https://unpkg.com/
 
@@ -29,7 +30,7 @@ puppeteer web自动化测试：[链接](https://www.bilibili.com/video/BV17s421N
 
 学习网站： https://egghead.io/guides   
 
- 
+ 飞书前端文档：[https://itoutiao.feishu.cn/docx/SAdidmcozohUmlxp29wcQtTXn2b]
 
 #### js高级
 [hello 算法](https://www.hello-algo.com/chapter_array_and_linkedlist/ram_and_cache/)
