@@ -41,6 +41,53 @@ webpack-loader 实现：[实现一个markdown loader](https://www.bilibili.com/v
 
 webpack-plugins 实现：[实现一个webpack -plugins](https://www.bilibili.com/video/BV1kP41177wp/?p=37&spm_id_from=pageDriver&vd_source=ceba6fa4ea92478c52c3119bd474a7ab)       
 
+``` js
+背景:
+快搭 2.0 ST 发布后遭遇访问白屏问题，异常一大根因是包版本异常，导出的方法不存在（详细分析见快搭V2.0 需求及发布文档#ST问题记录）
+![alt text](image.png)
+实际上在包构建时，webpack 就给出了模块依赖的异常，但是为 warning 级别，不会终止构建。
+如果能够提升这个 warning 的等级为 error 并终止构建，可以提前规避白屏问题带入 ST 环境。
+webpack 配置中没有特定的配置来针对地调整模块依赖异常这种特定异常，因此需要通过自定义插件的方式来实现。
+// webpack 插件
+class ConvertModuleDependencyWarningsToErrorsPlugin {
+	// options: 接收 plugin 的配置项
+  constructor(options) {
+		// 获取配置项，初始化插件
+  }
+  apply(compiler) {
+    compiler.hooks.done.tap('ConvertModuleDependencyWarningsToErrorsPlugin', (stats) => {
+      // 获取所有警告信息
+      const info = stats.toJson();
+      // 检查是否存在 ModuleDependencyWarning
+      const hasWarnings = info.warnings.some(warning => /^export(.*)was not found in/.test(warning.message));
+      if (hasWarnings) {
+        // 将警告提升为错误
+        throw new Error('Build failed due to module dependency errors.');
+      }
+    });
+  }
+}
+// webpack.config.js
+module.exports = {
+	// 其他配置 ...
+  // 插件配置
+  plugins: [
+    new ConvertModuleDependencyWarningsToErrorsPlugin() // 引入 ConvertModuleDependencyWarningsToErrorsPlugin
+		// ...
+  ]
+}
+// 使用  config/config.js
+export default {
+	chainWebpack: (config) => {
+  	// 添加插件
+    config.plugin('ConvertModuleDependencyWarningsToErrorsPlugin')
+      .use(ConvertModuleDependencyWarningsToErrorsPlugin, []);
+      return config;
+  }
+}
+![alt text](image-1.png)
+```
+
 #### web自动化测试 puppeteer [🔗视频链接](https://www.bilibili.com/video/BV17s421N72k/?spm_id_from=333.337.search-card.all.click)         
 项目的 package.json 配置 bin 命令
 ```javascript

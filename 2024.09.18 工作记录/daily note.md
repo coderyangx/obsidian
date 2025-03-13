@@ -8,6 +8,211 @@ TODO：
 代码提交量 6w+，千行 bug 率最低，bug 最少，https://yuntu.sankuai.com/v3/potency/person?config=param-f3b3107d-7347-457d-baec-0446b0b4054f
 
 **daily notes**
+**git diff --stat HEAD~1 最近一个 commit 代码量**
+日程/tt/问卷：稳定性建设、排障、线上告警；虚拟渲染；接口限制
+24年提交代码 6w加，千行bug率  0.29，20+个bug 
+![[Pasted image 20241204151412.png]]
+
+**TODO：**
+例会可以聚合填写、不同的需求会议不能整合，同一需求可以整合、运维（tt 值班、告警值班等等）
+代码提交量 6w+，千行 bug 率最低，bug 最少，https://yuntu.sankuai.com/v3/potency/person?config=param-f3b3107d-7347-457d-baec-0446b0b4054f
+**审批中心监听message事件，处理 JSON.parse(e.data) 时需要忽略来自 react-devtools插件的影响**
+1. 使用sdk替换现有的性能指标计算 shenpi-mobile项目有暂存代码：提交页/审批详情页无权限
+2. **建群沟通需要侵入审批流埋点：在建群沟通二期需求中落地。**[审批中心页面模块梳理&埋点](https://km.sankuai.com/collabpage/2028906779#b-aa662aea260b45388c4b33a5fa412a9f)
+3. **找线上的到家数据反推用户的表单设计存在卡顿问题，需要推动治理？也可以取平均，然后设定一个误差范围；使用孟杰老师sdk、不用每次都重新打开浏览器测试**
+4. **微前端融入之后的指标，相比之前是否提高了用户访问量和便捷度**
+    1. **入口融合数据统计 5.14功能上线**
+5. **关注连接器最新的使用频率**
+6. jimu-form可以release发正式包
+7. 循环渲染时数据不可变可以用index作为key，数据是动态的时候不能用index作key，会导致数据不更新
+8. **线下性能卡控规范：如何运营？如何测试，什么时候测试？指标多少进行卡控，指标高了，需要体感上测试感受是否存在问题**
+
+
+**工作记录**
+```javascript
+第一阶段：根据是否影响全局的 reaction 导致系统不可用   学前老师页面加载卡顿
+第二阶段：测试组件各个场景下的性能，监测系统交互卡顿场景    
+第三阶段：每个组件的选中逻辑不一致，内部可能包含了组件独特的 meta 配置和个人写法，需要区分组件类型进行测试，需要debugger搞懂组件添加/复制 组件选中  组件删除的运行逻辑  按钮组选中卡顿
+找入口融合发主干的原因
+晓旭让我帮忙发主干解释两点
+入口融合、连接器改造、审批进大象、线下性能卡控、稳定性
+入口融合 nginx 问题
+方案评审周知范围更大？让后端同学有可能帮感知到这个问题
+这块能不能灰度上线，即使简单流量灰度 因为整体改动挺关键的
+类似的发布有没有可持续关注的 埋点、指标，方案期就要考虑 甚至提前一个迭代发些埋点上去
+性能测试优化
+目前 单个耗时100s，这个可以优化；
+测试case 很多 xxx 个，这块我需要和mj老师再对下，是不是精简些
+机器的优化？这块要和bc后面再对下 要投资源考虑这个吗
+做技术项目的动作    要分析目标-拆解动作-评估收益-持续跟进 类似这种，是你自己摸索的方法论思考就是：会思考 快搭的性能未来会对哪些场景会很重要、同样做性能测试，落地快搭有什么不一样需要关注
+自己的方法论和思考
+“消除了畏难情绪，有了一些自己的方法论和思考”做技术项目的动作    要分析目标-拆解动作-评估收益-持续跟进 类似这种，是你自己摸索的方法论思考就是：会思考 快搭的性能未来会对哪些场景会很重要、同样做性能测试，落地快搭有什么不一样需要关注
+git diff --stat HEAD~1 最近一个 commit 代码量
+日程/tt/问卷：稳定性建设、排障、线上告警；虚拟渲染；接口限制
+reaction数量：和唯一性校验以及onValidate函数内的实现是否合节点有关
+唯一性校验已经优化了
+onValidate的内部实现影响总数
+璇哥：无论是技术上还是产品上总有很多的新点子，思路很开阔，解决问题的思路新奇，描述清晰，
+学谦：对学谦老师来说似乎没有技术上限这一问题，什么技术都做过、什么坑都踩过，能够一针见血给你点出问题
+坚哥：今年和坚哥在方案及产品上有很多沟通，帮助我们推进产品改进，解决问题，比如doa的版本对比需求，一些措施也帮助保障了快搭今年交付质量
+璐姐：璐姐现在做需求很细节，在做方案和产品上能够盘点的很清晰，也是非常乐于助人，
+mingtian：技术上追求卓越自控能力很强，特立独行，需要向他学习
+yuanteng：做东西是比较细的，能够深入分析一些重难点
+bc：bc老师手里握的东西挺多的，需要身兼入职，像问卷、日程、tt，操心很大，甚至要亲身上阵敲代码，我想说交给我们来， 包括在做需求、线下卡控时候给了很多输入和指导，很细致
+wanzhi：对整个大团队成员比较优待，对团队，非常爱护，述职能看出来研发有时候对产品是有些抵触的，wanzhi维护产研关系
+```
+
+
+3.13: 自定义的Tooltip组件问题,背景是列表页 没办法直接使用mtd的tootip组件,因为要给前面禁用的checkbox加Tooltip提示,只能自己hack,单hack之后会有个问题:鼠标hover到Tooltip里面姓名时,会请求vcard,此时鼠标再hover到vcard时,Tooltip就会消失,但mtd的tooltip就不会自动消失,这个问题如何优化?
+3.7：开发审批进大象，snapshot禁用缓存；
+3.6：快搭应用增加审批说明及国际化；表单底部间距bugfix调整；
+3.5：tooltip：hover单据行时才展示 i，存量bug修复 * 3；
+3.4：mrn审批提示信息P1优先级，和搜索页面的快捷审批按钮展示问题，暂不处理；待定后处理；
+前后端测试：列表页流程负责人单独请求，hover时才请求；
+开发tooltip组件，出现快速hover不关闭的问题；
+讨论审批进大象：列表刷新问题
+3.3：开发审批进大象
+2.26：logo修改、埋点完成、mrn发布审批问题咨询
+2.25：埋点问题数据分析和补充 0.5pd，审批和快搭应用，
+，logo开发；；；一共11天
+2.20：调研引擎报错、滚动条优化和后台链接修改及发布、mrn全量；
+2.19：调研引擎报错、tt处理耗时0.5pd；
+2.18：30天计数数字闪烁问题，是因为接口的时序问题，通过Promise.all()来解决，等待所有接口完成
+visibilitychange事件监听未销毁导致不断累计触发多个tasks请求，3 - 6 - 9 -12-
+2.17：审批进大象bugfix
+1.22：
+审批进大象三期：
+2.3优化及bugfix：缺陷  【MVP-V2.2】通过链接直接访问快搭应用权限编辑页，点击后退箭头&取消按钮无效 [已关闭] 
+v2.3体验优化 list
+   待处理      都是审批进大象相关  shenpi-mobile
+移动端开发mrn
+1.21：开发快捷审批按钮，进行大象内UI适配
+1.20：快搭审批和快搭应用提交页和详情页滚动条优化完成
+1.17：
+1.14：tt值班0.5pd；mrn调试尝试 增加通过/驳回弹窗；workforce页增加重新提交逻辑基本完成
+1.13：审批进大象方案书写及排期：demo审批详情页hack提交页
+1.10：进大象UI开发
+1.9：审批进大象三期二次评审、UI开发、方案书写，重新提交跳转提交页优化完成
+移动端大象判断url参数是否是灰度，展示引导弹窗，如果移动端从工作台打开是不希望看到弹窗的
+pc端侧边栏只要能看到审批中心导航说明就是灰度，就要出现引导弹窗，有一个埋点判断，是否是大象灰度内用户
+审批详情页撤回单据（发起人），修改为跳转提交页打开
+去审批前端判断展示，是否展示快捷通过/驳回，后端下发字段判断用户是否是灰度内，才展示（网页端不支持，扩大新旧体验间的差值，引导用户迁移到大象引导用户去大象）
+ 1.8：feature/CLRXO-88266993/submit-nopermission、feature/CLRXO-88266993/0108: 不吸顶问题
+、开放平台未关联应用却展示问题
+ 待后端修复
+1.7：线下性能测试：提交时忽然无权限 bugfix 
+、1.6：调研审批进大象通过/驳回实现方案：bugfix
+**2025**
+
+12.1：**pike接入刷新时机**：单次通过或产生待审批单据时的时差是否超过 1s，以及后端处理数据耗时是否超过 1s，都会影响前端页面的刷新逻辑
+- 单次创建或者通过待审批单据   -   角标 or 列表更新   -   **后端始终有800ms延时**
+	- 前端防抖1s
+	    1. 若多次提交单据时间差小于1s，且后端处理时长小于1s，结果是前端持续接收消息，但会在至少 1s 后请求接口刷新 **刷新不及时**
+	    2. 若多次提交单据，但后端处理时长超过 1s，结果是前端每隔1s就会请求接口刷新 **频繁刷新**
+    1. 前端立即执行1次，然后防抖
+	    1. 若多次提交单据时间差小于1s，且后端处理时长小于1s，结果是前端立即刷新1次，后续至少 1s 后再次刷新 **刷新不及时**
+	    2. 若多次提交单据时间差小于1s，但后端处理时长超过 1s，结果是前端每隔1s就会请求接口刷新 **频繁刷新**
+- 批量通过或驳回单据（一次最多20条）
+	- 前端防抖1s
+	    1. 若后端处理时长小于1s，结果是前端持续接收消息，但会在至少 1s 后请求接口刷新 **刷新不及时**
+	    2. 
+	- 前端立即执行1次，然后防抖
+		- 能够较好兼容单次通过，后续要看后端推送消息时长
+        1. 1s 内推送多条，前端至少在 1s 后仅刷新一次
+        2. 每次推送消息超过 1s，前端会频繁刷新
+
+
+**dx.less 不同环境下的样式适配规范：创建一个单独的less文件用于覆盖原有样式**
+- 异步加载：layout 根组件中；可能会有异步加载时序问题，出现闪屏
+- ![[Pasted image 20241204101410.png]]![[Pasted image 20241204101430.png]]
+- link 插入：webpack配置增加 headScript，插入js文件，动态创建link标签加载
+- 基于命名空间样式，增加大象内样式 dxStyle，多加载一份css，肯定不会出现样式跳变 ✅
+- ![[Pasted image 20241204101515.png]]
+
+**11.27** modal弹窗内iframe内嵌入的提交页-详情页-点击表单里的图片预览，其关闭按钮和modal弹窗的关闭按钮重叠，无法点击
+封装detectMaskShow以及detectImagePreview以及 postMessage函数
+``` typescript
+export const postMessage = (
+	type: 'SHOW_MODAL_CLOSE' | 'HIDE_MODAL_CLOSE',
+	data = '',
+	isToTop = false): void => {
+	if (window.parent === window) return;
+
+	const message = JSON.stringify({
+		channel: 'FRAME_APP',
+		type,
+		data
+	});
+	if (isToTop) {
+		window.top.postMessage(message, '*');
+		return;
+	}
+	window.parent.postMessage(message, '*');
+	};
+
+export const detectMaskShow = (): (() => void) => {
+	const options = { childList: true, subtree: true };
+	const callback = function(mutationsList) {
+	for (const mutation of mutationsList) {
+		if (mutation.type === 'childList') {
+			if (mutation.addedNodes) {
+				const hasModal = Array.from(mutation.addedNodes).some((item: any) => item.classList?.contains('mtd-modal-wrapper'));
+				if (hasModal) {
+					// 当iframe内部还存在modal框，modal的mask的背景色需要变浅
+					const modal = Array.from(mutation.addedNodes).find((item: any) => item.classList?.contains('mtd-modal-wrapper'));
+					let mask;
+					for (const node of modal.childNodes) {
+						if (node.classList?.contains('mtd-modal-mask')) {
+							mask = node;
+						}
+						break;
+					}
+					mask.style.background = 'rgba(0, 0, 0, 0.2)';
+					postMessage('HIDE_MODAL_CLOSE', '');
+				break;
+		}
+	}
+
+	if (mutation.removedNodes) {
+	const hasModal = Array.from(mutation.removedNodes).some((item: any) =>
+	item.classList?.contains('mtd-modal-wrapper'));
+	if (hasModal) {
+	postMessage('SHOW_MODAL_CLOSE', '');
+	break;
+	}}}}};
+	const observer = new MutationObserver(callback);
+	observer.observe(document.body, options);
+	return () => {
+	observer.disconnect();
+	};};
+
+```
+
+**11.21:** 部门超长时，样式问题；补下为0不展示角标；快搭应用Header改了，回归提交页、详情页、审批详情页的web及iframe样式
+**渲染测条件显隐性能测试配置**
+刷新列表和更新角标的场景分为两种：1、在当前tab有更新刷新列表 2、不在当前tab只更新角标
+正常的页面visible可见请求和pike推送的接口更新：有冲突如何处理，debounce？时间戳？ **visible事件刷新可以拿掉了**
+**msgHandle的条件处理逻辑放在外面统一收敛 if xxx if 刷新列表、更新角标，只往handle传入一个回调 refreshData ，**
+审批流样式修改完找璐姐对：
+11.20：为什么useEffect里面拿到的ref是 undefined；如何监听iframe内容加载出来
+**需要特别注意的是**，iframe页面内部的跳转虽然不会让浏览器地址栏发生变化，但是却会产生一个看不见的“history记录”，也就是点击前进或后退按钮（history.forward()或history.back()）可以让iframe页面也前进后退，但是地址栏无任何变化。
+所以准确来说前进后退无需我们做任何处理，我们要做的就是让浏览器地址栏同步更新即可。
+> 如果要禁用浏览器的上述默认行为，一般只能在iframe跳转时通知父页面更新整个<iframe />DOM节点。
+
+1.14：**联调pike已调通**，大象开发弹窗，体验贼差，跳转链接/刷新的时候动不动卡死
+11.13：pike接入和联调测试、tt、 **shenpi-mobile暂存代码**
+11.12：**parker 接收服务端消息，更新大象角标；**方案调研
+6000移动端无法选择日期区间问题排查跟进：0.5pd
+doa走查修改 0.3pd
+11.11：**parker 接收服务端消息，更新大象角标；**
+
+**tab切换时审批提交页面的保留时长，失活时间？ 对齐日程；**方案调研
+10.25：跑性能测试，修改指标策略，去掉最大值和最小值尖刺数据，偶尔卡顿，可忽略，削弱怼整体结果的影响
+**10.24：走查问题修复，小版本发布之后要及时合并到release，否则后面接冲突很麻烦 release发布耗时**
+**排查流程编辑器nest部署异常问题：已解决，nest上node构建版本过低，从10改为12版本可部署成功**
+10.22：走查发布 和代码 排查流程编辑器nest部署异常问题0.5pd 组织bugbash mj老师的指标上传策略有修改，跑测试报错，排查了一下问题
+文案适配国际化
+10.21：开发doa版本对比
 
 **10.17**
 循环渲染时数据不可变可以用 index 作为 key，数据是动态的时候不能用 index 作 key，会导致数据不更新
